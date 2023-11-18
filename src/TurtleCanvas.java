@@ -1,4 +1,5 @@
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Graphics;
 
 import javax.swing.JPanel;
@@ -6,8 +7,14 @@ import javax.swing.JPanel;
 public class TurtleCanvas extends JPanel {
 	private Turtle turtle;
 
-	public TurtleCanvas(Turtle turtle) {
+	private int depth;
+
+	private int sideLength;
+
+	public TurtleCanvas(Turtle turtle, int sideLength, int depth) {
 		this.turtle = turtle;
+		this.sideLength = sideLength;
+		this.depth = depth;
 	}
 
 	@Override
@@ -15,7 +22,7 @@ public class TurtleCanvas extends JPanel {
 		super.paintComponent(g);
 
 
-		drawFractal(g, 250, 3);
+		drawFractal(g, sideLength, depth);
 	}
 
 	// Main Recursive Method
