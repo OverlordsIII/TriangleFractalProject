@@ -16,20 +16,23 @@ public class Main {
 		// create jFrame window
 		JFrame jFrame = new JFrame();
 
-		// to spawn turtle in middle of window
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		double width = screenSize.getWidth();
-		double height = screenSize.getHeight();
-
 		Scanner scanner = new Scanner(System.in);
 		System.out.print("What depth do you want?: ");
 		int depth = scanner.nextInt();
+
+		// depth must be lower than 10 or it will be too small to render on the screen
+		while (depth >= 10) {
+			System.out.println("Depth must be less than 10, otherwise it will be too small to see.");
+			System.out.print("What is your new value for depth?:");
+			depth = scanner.nextInt();
+		}
+
 		System.out.print("What side length do you want?: ");
 		int sideLength = scanner.nextInt();
 
 		// create canvas to draw to
-		// create turtle object that should start at the middle of the canvas
-		TurtleCanvas canvas = new TurtleCanvas(new Turtle((int) (width / 2), (int) (height / 2)), sideLength, depth);
+		// create turtle object that should start at 100, 100
+		TurtleCanvas canvas = new TurtleCanvas(new Turtle(100, 100), sideLength, depth);
 		jFrame.add(canvas);
 
 		// set size of window to be 1000

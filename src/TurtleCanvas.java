@@ -1,6 +1,6 @@
-import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.Random;
 
 import javax.swing.JPanel;
 
@@ -31,6 +31,8 @@ public class TurtleCanvas extends JPanel {
 		if (depth == 0) {
 			drawTriangle(sideLength, graphics);
 		} else {
+			// set to random color
+			graphics.setColor(getColor());
 			// Draw first triangle from tip of big triangle down
 			// this will draw the first line
 			drawFractal(graphics, sideLength / 2, depth - 1);
@@ -52,18 +54,46 @@ public class TurtleCanvas extends JPanel {
 			turtle.move(-sideLength / 2);
 			turtle.turn(-60);
 		}
+	}
 
+	// random color based on 14 based colors in Java AWT package
 
+	private Color getColor() {
+		int depth = new Random().nextInt(1, 15);
+		Color color = Color.BLACK;
+		switch (depth) {
+			case 1 -> color = Color.WHITE;
+			case 2 -> color = Color.LIGHT_GRAY;
+			case 3 -> color = Color.GRAY;
+			case 4 -> color = Color.DARK_GRAY;
+			case 5 -> color = Color.BLACK;
+			case 6 -> color = Color.RED;
+			case 7 -> color = Color.PINK;
+			case 8 -> color = Color.ORANGE;
+			case 9 -> color = Color.YELLOW;
+			case 10 -> color = Color.GREEN;
+			case 11 -> color = Color.MAGENTA;
+			case 12 -> color = Color.CYAN;
+			case 13 -> color = Color.BLUE;
+		}
 
+		return color;
 	}
 
 	// draw triangles with 120 degree angles. Used in base case
 	private void drawTriangle(int sideLength, Graphics graphics) {
+		int[] xPoints = new int[3];
+		int[] yPoints = new int[3];
+
 		for (int i = 0; i < 3; i++) {
 			turtle.move(sideLength);
+			xPoints[i] = (int) turtle.getX();
+			yPoints[i] = (int) turtle.getY();
 			turtle.turn(120);
-			draw(graphics);
 		}
+
+		//graphics.setColor(color);
+		graphics.fillPolygon(xPoints, yPoints, 3);
 	}
 
 	// draws a line for turtle graphics
